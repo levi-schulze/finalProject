@@ -31,14 +31,23 @@ function [] = waveLength(~,~)
         type = gui.buttonGroup.SelectedObject.String; %determines what radiobutton is selected
         plotWave(type); %plots the values
     end
+    if waveLength > 0
+    else
+        f = errordlg('Values entered must be numbers'); %prints error if incorrect values are entered
+    end
 end
 
 function [] = waveSpeed(~,~)
     global gui;
     waveLength = str2double(gui.waveLength.String); %changes variable to a number
+    waveSpeed = str2double(gui.waveSpeed.String);
     if waveLength > 0 %checks if there is a value in waveLength
         type = gui.buttonGroup.SelectedObject.String; %determines what radiobutton is selected
         plotWave(type); %plots the values
+    end
+    if waveSpeed > 0
+    else
+        f = errordlg('Values entered must be numbers'); %prints error if incorrect values are entered
     end
 end
 
@@ -63,19 +72,19 @@ function [] = plotWave(type)
     frequency = waveSpeed/waveLength; %calculates frequency value
     gui.frequency.String = ['Frequency: ',num2str(frequency),'Hz']; %adds frequency values
     
-    if strcmp(type,'Distance(Meters)') %determi
+    if strcmp(type,'Distance(Meters)') %determines what radiobutton is selected
         syms x; %creates a variable x
         f = amplitude*cos((2*pi/waveLength)*x); %calculates graph from equation of wave
-        fplot(f);
-        ylim([-10 10]);
-        ylabel('Displacement(Meters)');
-        title('Wave Graph')
+        fplot(f); %plots the function
+        ylim([-10 10]); %sets y axis limits
+        ylabel('Displacement(Meters)'); %creates y axis label
+        title('Wave Graph') %creates plot title
     else
-        syms x;
-        f = amplitude*cos(2*pi*frequency*(x/1000));
-        fplot(f);
-        ylim([-10 10]);
-        ylabel('Displacement(Meters)');
-        title('Wave Graph')
+        syms x; %creates a variable x
+        f = amplitude*cos(2*pi*frequency*(x/1000)); %calculates graph from equation of wave and changes time to milliseconds
+        fplot(f); %plots the function
+        ylim([-10 10]); %sets y axis limits
+        ylabel('Displacement(Meters)'); %creates y axis label
+        title('Wave Graph') %creates plot title
     end
 end

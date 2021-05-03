@@ -27,18 +27,28 @@ end
 function [] = waveLength(~,~)
     global gui;
     waveSpeed = str2double(gui.waveSpeed.String); %changes variable to a number
+    waveLength = str2double(gui.waveLength.String);
     if waveSpeed > 0 %checks if there is a value in waveSpeed
         type = gui.buttonGroup.SelectedObject.String; %determines what radiobutton is selected
         plotWave(type); %plots the values
+    end
+    if waveLength > 0
+    else
+        f = errordlg('Values entered must be numbers'); %prints error if incorrect values are entered
     end
 end
 
 function [] = waveSpeed(~,~)
     global gui;
     waveLength = str2double(gui.waveLength.String); %changes variable to a number
+    waveSpeed = str2double(gui.waveSpeed.String);
     if waveLength > 0 %checks if there is a value in waveLength
         type = gui.buttonGroup.SelectedObject.String; %determines what radiobutton is selected
         plotWave(type); %plots the values
+    end
+    if waveSpeed > 0
+    else
+        f = errordlg('Values entered must be numbers'); %prints error if incorrect values are entered
     end
 end
 
